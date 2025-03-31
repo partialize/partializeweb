@@ -89,8 +89,9 @@
   document.getElementById('signup-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const emailInput = document.getElementById('email');
-    const email = emailInput.value.trim();
+    const submitButton = this.querySelector('button');
     const responseMessage = document.getElementById('response');
+    const email = emailInput.value.trim();
 
     // Basic email validation
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
@@ -98,28 +99,34 @@
       return;
     }
 
+    // Show loading text and disable button
+    submitButton.textContent = 'Loading...';
+    submitButton.disabled = true;
+
     try {
-      const data = { email: email }; // Send as an object
+      const data = { email: email };
       const response = await fetch('https://script.google.com/macros/s/AKfycbxyyg9UBEkVeXdyuJ37vxBz6Q3fObwZRqhG9xdR8hOfoJVAHOEtvSGgOkwLKSQiOqJ2/exec', {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Change to JSON
-        body: JSON.stringify(data) // Convert object to JSON string
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
       });
 
-      const responseText = await response.text(); // Read the response as text
-      console.log('Server response:', responseText); // Log the response to console
+      const responseText = await response.text();
+      console.log('Server response:', responseText);
 
       if (response.ok) {
         responseMessage.classList.remove('hidden');
         responseMessage.textContent = "Thanks! We'll be in touch.";
         emailInput.value = '';
       } else {
-        console.error('Error:', responseText);
         alert('Something went wrong. Please try again.');
       }
     } catch (error) {
-      console.error('Request failed:', error);
       alert('Network error. Please check your connection and try again.');
+    } finally {
+      // Restore button text and enable it
+      submitButton.textContent = 'Join';
+      submitButton.disabled = false;
     }
   });
 </script>
