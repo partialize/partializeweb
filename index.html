@@ -90,18 +90,18 @@
     e.preventDefault();
     const email = document.getElementById('email').value;
 
-    const data = { email: email };
-
     const response = await fetch('https://script.google.com/macros/s/AKfycbxyyg9UBEkVeXdyuJ37vxBz6Q3fObwZRqhG9xdR8hOfoJVAHOEtvSGgOkwLKSQiOqJ2/exec', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       },
-      body: JSON.stringify(data)
+      body: email
     });
 
     if (response.ok) {
       document.getElementById('response').classList.remove('hidden');
+    } else {
+      console.error('Error:', await response.text());
     }
   });
 </script>
