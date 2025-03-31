@@ -105,12 +105,15 @@
         body: email
       });
 
+      const responseText = await response.text(); // Read the response as text
+      console.log('Server response:', responseText); // Log the response to console
+
       if (response.ok) {
         responseMessage.classList.remove('hidden');
         responseMessage.textContent = "Thanks! We'll be in touch.";
         emailInput.value = '';
       } else {
-        console.error('Error:', await response.text());
+        console.error('Error:', responseText);
         alert('Something went wrong. Please try again.');
       }
     } catch (error) {
