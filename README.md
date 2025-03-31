@@ -1,2 +1,0 @@
-# partializeweb
-Website for partialize
