@@ -50,11 +50,12 @@
     </h1>
 
     <p class="text-gray-400 mb-4 sm:mb-6 text-base sm:text-lg">sign up for our exclusive closed beta and stay ahead.</p>
-    <form id="signup-form" class="relative w-full mb-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+    <form id="signup-form" action="https://formspree.io/f/mqapdnkb" method="POST" class="relative w-full mb-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
       <div class="relative w-full">
         <input
                 id="email"
                 type="email"
+                name="email"
                 required
                 placeholder=" "
                 class="w-full p-3 pl-4 text-black rounded-lg outline-none focus:ring-2 focus:ring-gray-600 input-focus"
@@ -83,21 +84,5 @@
     </p>
   </div>
 </div>
-<script>
-  document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-
-    const res = await fetch('/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-
-    if (res.ok) {
-      document.getElementById('response').classList.remove('hidden');
-    }
-  });
-</script>
 </body>
 </html>
